@@ -1,4 +1,7 @@
 # News-Getter
+[![Build Status](https://travis-ci.org/IIC2173-2015-2-Grupo2/news-getter.svg)](https://travis-ci.org/IIC2173-2015-2-Grupo2/news-getter)
+
+> Framework: [Sinatra](http://www.sinatrarb.com/)
 
 Make sure you have **Ruby 2.2.3** installed.
 You can use [RVM](https://rvm.io/) or [rbenv](https://github.com/sstephenson/rbenv).
