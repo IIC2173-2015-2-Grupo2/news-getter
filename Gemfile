@@ -2,6 +2,8 @@ source "http://rubygems.org/"
 
 ruby "2.2.3"
 
+gem "rake"
+
 # declare the sinatra dependency
 gem "sinatra"
 
