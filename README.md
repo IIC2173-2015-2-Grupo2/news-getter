@@ -3,14 +3,16 @@
 Make sure you have **Ruby 2.2.3** installed.
 You can use [RVM](https://rvm.io/) or [rbenv](https://github.com/sstephenson/rbenv).
 
-### `rbenv`
+#### `rbenv`
 ```sh
 $ rbenv install 2.2.3
 $ rbenv global 2.2.3
 $ ruby -v
 ```
 
-## Setup
+## Local
+
+### Setup
 
 Install [bunlder](http://bundler.io/):
 ```sh
@@ -25,7 +27,32 @@ Install gems:
 $ bundle install
 ```
 
-## Run
+### Run
 ```sh
-$ rackup
+$ rackup -p 5000
+
+# Available on:
+# http://localhost:5000/
+```
+
+## Docker
+
+```sh
+# Create VM
+$ docker-machine create --driver virtualbox news-getter
+
+# Setup
+$ eval "$(docker-machine env news-getter)"
+```
+
+### Run
+
+Run on port 5000, to see the Virtual Machine IP:
+```sh
+$ docker-machine ip news-getter
+```
+
+Build and run:
+```sh
+$ make docker
 ```
