@@ -9,8 +9,8 @@ enviar las noticias. El scheduler se encarga de administrar a los trabajadores.
 
 ###To-Do's
 
--Ordenar archivos en carpetas
--Agregar mas fuentes de noticias
--Crear Diagramas de Clases
--Implementar scheduler con whenever
--Archivo de variables globales
+  - Ordenar archivos en carpetas
+  - Agregar mas fuentes de noticias
+  - Crear Diagramas de Clases
+  - Implementar scheduler con whenever
+  - Archivo de variables globales
