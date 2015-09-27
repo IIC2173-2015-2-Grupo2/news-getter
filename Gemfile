@@ -4,6 +4,10 @@ ruby "2.2.3"
 
 gem "rake"
 
+gem 'httparty'
+
+gem 'nokogiri'
+
 # declare the sinatra dependency
 gem "sinatra"
 

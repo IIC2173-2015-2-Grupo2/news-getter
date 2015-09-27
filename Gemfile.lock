@@ -3,6 +3,14 @@ GEM
   specs:
     chronic (0.10.2)
     diff-lcs (1.2.5)
+    httparty (0.13.7)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
+    json (1.8.3)
+    mini_portile (0.6.2)
+    multi_xml (0.5.5)
+    nokogiri (1.6.6.2)
+      mini_portile (~> 0.6.0)
     puma (2.14.0)
     rack (1.6.4)
     rack-protection (1.5.3)
@@ -33,6 +41,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  httparty
+  nokogiri
   puma
   rake
   rspec

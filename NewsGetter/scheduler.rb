@@ -1,5 +1,6 @@
 require './Worker'
 require './emol'
+require './theguardian'
 
 class Scheduler
 
