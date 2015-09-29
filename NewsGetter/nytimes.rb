@@ -22,7 +22,7 @@ class NYTimes
 
         time2 = parseTime time.to_s
         break if !earlier?(last_fetch, time2)
-        header2 = parseTimesHeader header.to_s
+        header2 = parseCNNHeader header.to_s
 
         noticia = {title: "#{title}", time: "#{time2}", header: "#{header2}", url: "#{url}" }
 
