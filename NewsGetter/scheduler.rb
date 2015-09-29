@@ -3,6 +3,7 @@ require './emol'
 require './theguardian'
 require './cnn'
 require './latercera'
+require './nytimes'
 
 class Scheduler
 
@@ -11,15 +12,14 @@ class Scheduler
     worker2 = Worker.new TheGuardian.new
     worker3 = Worker.new CNN.new
     worker4 = Worker.new LaTercera.new
+    worker5 = Worker.new NYTimes.new
 
     while true
       worker1.work
-      sleep(3)
       worker2.work
-      sleep(3)
       worker3.work
-      sleep(3)
       worker4.work
+      worker5.work
       sleep(3)
     end
 

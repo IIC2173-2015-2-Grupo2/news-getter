@@ -21,9 +21,8 @@ class Worker
     else
       puts "Nothing to send"
     end
-
-
   end
+  
 
   private
 
