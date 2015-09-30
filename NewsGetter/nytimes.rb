@@ -26,6 +26,7 @@ class NYTimes
 
         noticia = {title: "#{title}", time: "#{time2}", header: "#{header2}", url: "#{url}" }
 
+        noticia
       end
       news
     end

@@ -25,7 +25,6 @@ class LaTercera
         header2 = parseTerceraHeader header.to_s
 
         noticia = {title: "#{title}", time: "#{time2}", header: "#{header2}", url: "#{url}" }
-        puts noticia
 
         noticia
       end
