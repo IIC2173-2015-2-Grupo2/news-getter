@@ -10,16 +10,14 @@ def parseTime time
 	Time.parse(time).to_s.chomp(" UTC")
 end
 
-def parseEmolBody body
-	aux = ''
-	aux2 = body.gsub("<br>", '')
+def parseBody body
+	aux = body.gsub("<br>", '')
 	aux2 = aux2.to_s.split("<")
 	aux2.each do |a|
-		aux3 = ''
-		aux3 = a.to_s.split(">").last
-		aux = aux + aux3.to_s
+		aux3 = a.to_s.split(">").first
+		aux = aux.gsub(aux3, '')
 	end
-	aux = aux.to_s.gsub("/div", '')
+
 	aux
 end
 

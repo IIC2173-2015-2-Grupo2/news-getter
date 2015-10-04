@@ -24,7 +24,7 @@ class Emol
         body = doc2.xpath("//div[contains(@id, 'cuDetalle_cuTexto_textoNoticia')]").first
         
         time2 = to_time(year, month, day, time.to_s)
-        body2 = parseEmolBody body.to_s
+        body2 = parseBody body.to_s
         break if !earlier?(last_fetch, time2)
 
         noticia = {title: "#{title}", time: "#{time2}", header: "#{header}", url: "#{url}" , body: "#{body2}"}

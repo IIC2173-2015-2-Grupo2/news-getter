@@ -19,7 +19,7 @@ class CNN
 			title = node.xpath('title/text()')
 			header = node.xpath("description/text()")
 			url = node.xpath("guid/text()")
-			
+
 			doc2 = Nokogiri::HTML(open(url.to_s))
 			body = ''
 
@@ -29,6 +29,7 @@ class CNN
         	end
 
 			time2 = parseTime time.to_s
+			body2 = parseBody body.to_s
 			break if !earlier?(last_fetch, time2)
 			header2 = parseCNNHeader header.to_s
 
