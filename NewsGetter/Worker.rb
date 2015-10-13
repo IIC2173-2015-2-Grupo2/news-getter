@@ -3,8 +3,10 @@ require './Postman'
 class Worker
   attr_accessor :source
   attr_accessor :last_fetch
+  attr_accessor :postman
 
-  def initialize(source)
+  def initialize(postman, source)
+    @@postman = postman
     @source = source
     @last_fetch = "2000-01-01 00:00:00"
   end
@@ -15,26 +17,9 @@ class Worker
 
     if news.length >0
       @last_fetch = news.first[:time]
-      puts "Last Fetch: #{@last_fetch}"
-      puts news
-      send_news news
+      @@postman.add_news(news)
     else
       puts "Nothing to send"
-    end
-  end
-  
-
-  private
-
-  def send_news(news = Array.new)
-    news.each do |x|
-      options = {
-        body: {
-          news: x
-        }
-      }
-      Postman.send('/', options)
-      puts "News Send"
     end
   end
 
