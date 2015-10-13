@@ -23,11 +23,11 @@ class Emol
         doc2 = Nokogiri::HTML(open(url.to_s))
         body = doc2.xpath("//div[contains(@id, 'cuDetalle_cuTexto_textoNoticia')]").first
         
-        time2 = to_time(year, month, day, time.to_s)
-        body2 = parseBody body.to_s
-        break if !earlier?(last_fetch, time2)
+        time = to_time(year, month, day, time.to_s)
+        break if !earlier?(last_fetch, time)
+        body = parseBody body.to_s
 
-        noticia = {title: "#{title}", time: "#{time2}", header: "#{header}", url: "#{url}" , body: "#{body2}"}
+        noticia = {title: "#{title}", time: "#{time}", header: "#{header}", url: "#{url}" , body: "#{body}"}
 
         noticia
       end

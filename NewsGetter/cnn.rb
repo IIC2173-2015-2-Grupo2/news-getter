@@ -28,12 +28,12 @@ class CNN
         		body = body + parragraph.to_s
         	end
 
-			time2 = parseTime time.to_s
-			body2 = parseBody body.to_s
-			break if !earlier?(last_fetch, time2)
-			header2 = parseCNNHeader header.to_s
+			time = parseTime time.to_s
+			break if !earlier?(last_fetch, time)
+			header = parseHeader header.to_s
+			body = parseBody body.to_s
 
-			noticia = {title: "#{title}", time: "#{time2}", header: "#{header2}", url: "#{url}", body: "#{body}" }
+			noticia = {title: "#{title}", time: "#{time}", header: "#{header}", url: "#{url}", body: "#{body}" }
 
 			noticia
 		end

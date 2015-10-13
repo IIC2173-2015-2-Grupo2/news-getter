@@ -23,12 +23,12 @@ class LaTercera
         doc2 = Nokogiri::HTML(open(url.to_s))
         body = doc2.xpath("//div[contains(@class, 'article-center-text')]").first
         
-        time2 = parseTime time.to_s
-        body2 = parseBody body.to_s
-        break if !earlier?(last_fetch, time2)
-        header2 = parseTerceraHeader header.to_s
+        time = parseTime time.to_s
+        break if !earlier?(last_fetch, time)
+        header = parseHeader header.to_s
+        body = parseBody body.to_s
 
-        noticia = {title: "#{title}", time: "#{time2}", header: "#{header2}", url: "#{url}", body: "#{body2}" }
+        noticia = {title: "#{title}", time: "#{time}", header: "#{header}", url: "#{url}", body: "#{body}" }
 
         noticia
       end

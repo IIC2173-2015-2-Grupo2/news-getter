@@ -23,11 +23,13 @@ class TheGuardian
         #doc2 = Nokogiri::HTML(open(url.to_s))
         #body = doc2.xpath("//div[contains(@class, 'content__article-body')]").first
 
-        time2 = parseTime time.to_s
-        break if !earlier?(last_fetch, time2)
-        header2 = parseGuardianHeader header.to_s
+        body = ""
 
-        noticia = {title: "#{title}", time: "#{time2}", header: "#{header2}", url: "#{url}", body: ""}
+        time = parseTime time.to_s
+        break if !earlier?(last_fetch, time)
+        header = parseHeader header.to_s
+
+        noticia = {title: "#{title}", time: "#{time}", header: "#{header}", url: "#{url}", body: "#{body}"}
       end
       news
     end

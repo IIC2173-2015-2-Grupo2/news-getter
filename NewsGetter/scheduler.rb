@@ -15,12 +15,12 @@ class Scheduler
     worker5 = Worker.new NYTimes.new
 
     while true
-      #worker1.work
-      #worker2.work
-      #worker3.work
-      #worker4.work
+      worker1.work
+      worker2.work
+      worker3.work
+      worker4.work
       worker5.work
-      sleep(3)
+      sleep(1000)
     end
 
 

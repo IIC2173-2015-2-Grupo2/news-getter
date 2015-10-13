@@ -3,37 +3,91 @@ def to_time( year, month,day, time, sec='00')
 	x = "#{year}-#{month}-#{day} #{time}:#{sec}"
 	x
 end
+
 def earlier? (time1, time2)
 	Time.parse(time1).to_f < Time.parse(time2).to_f
 end
+
 def parseTime time
 	Time.parse(time).to_s.chomp(" UTC")
 end
 
-def parseBody body
-	aux = body.gsub("<br>", '')
-	aux2 = aux2.to_s.split("<")
-	aux2.each do |a|
-		aux3 = a.to_s.split(">").first
-		aux = aux.gsub(aux3, '')
+def parseHeader header
+	aux = ""
+
+	header = header.gsub("<![CDATA[", '')
+	header = header.gsub("]]>", '')
+
+	tags = header.split("&lt;")
+	if header["<"]
+		parser = true;
+	end
+
+	if parser
+
+		tags = header.split("<")
+		tags.each do |tag|
+			if tag != "" && tag[">"]
+				tag = tag.split(">")
+				if tag.first != tag.last
+					aux = aux + tag.last
+				end
+			elsif tag != ""
+				aux = aux + tag
+			end
+		end
+	else
+		tags.each do |tag|
+			if tag != "" && tag["&gt;"]
+				tag = tag.split("&gt;")
+				if tag.first != tag.last
+					aux = aux + tag.last
+				end
+			elsif tag != ""
+				aux = aux + tag
+			end
+		end
 	end
 
 	aux
 end
 
-def parseGuardianHeader header
-	aux = header.gsub("&lt;p&gt;", '')
-	aux = aux.gsub("&lt;/p&gt;", ".")
-	aux = aux.split("&lt;a")[0]
-	aux
-end
-def parseCNNHeader header
-	aux = header.to_s.split("&lt;br clear='all'").first
-	aux
-end
-def parseTerceraHeader header
-	aux = header.split("> ").last
-	aux = aux.to_s.gsub("]]&gt", '')
-	aux = aux.to_s.gsub(";", '')
+def parseBody body
+	aux = ""
+
+	body = body.gsub("<![CDATA[", '')
+	body = body.gsub("]]>", '')
+
+	tags = body.split("&lt;")
+	if body["<"]
+		parser = true;
+	end
+
+	if parser
+
+		tags = body.split("<")
+		tags.each do |tag|
+			if tag != "" && tag[">"]
+				tag = tag.split(">")
+				if tag.first != tag.last
+					aux = aux + tag.last
+				end
+			elsif tag != ""
+				aux = aux + tag
+			end
+		end
+	else
+		tags.each do |tag|
+			if tag != "" && tag["&gt;"]
+				tag = tag.split("&gt;")
+				if tag.first != tag.last
+					aux = aux + tag.last
+				end
+			elsif tag != ""
+				aux = aux + tag
+			end
+		end
+	end
+
 	aux
 end
