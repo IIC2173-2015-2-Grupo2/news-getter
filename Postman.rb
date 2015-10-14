@@ -12,18 +12,20 @@ class Postman
 	end
 
 	def add_news noticia
-		@@news << noticia
+		noticia.each do |n|
+			@@news << n
+		end
 	end
 
 	def done_fetch
 		if !@@news.nil?
 			puts "Enviando noticias..."
-			last_news = {
+			options = {
 				body: {
 					news: @@news
 				}
 			}
-		    Postman.send_news('/', last_news)
+		    send_news('/', options)
 		    puts "Noticias enviadas."
 		end
 	end
@@ -31,7 +33,7 @@ class Postman
 
 	private
 
-	def self.send_news(uri, object)
+	def send_news(uri, object)
 		post(uri, object)
 	end
 end
