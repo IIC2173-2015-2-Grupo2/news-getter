@@ -14,6 +14,9 @@
 .repl_history
 build/
 
+## Archivos para Testeo
+./Prueba.rb
+
 ## Documentation cache and generated files:
 /.yardoc/
 /_yardoc/
