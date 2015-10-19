@@ -4,22 +4,34 @@ class Worker
   attr_accessor :source
   attr_accessor :last_fetch
   attr_accessor :postman
+  attr_accessor :adapter
 
-  def initialize(postman, source)
+  def initialize(postman, source, adapter)
     @@postman = postman
     @source = source
-    @last_fetch = "2000-01-01 00:00:00"
+    @adapter = adapter
+    @last_fetch = @adapter.last_fetch source.name
   end
 
   def work
-    news = @source.fetch_news @last_fetch
+    begin
+      news = @source.fetch_news @last_fetch
+    rescue
+      puts "Something went wrong getting the news. Try again later"
+    end
     news ||= Array.new
 
     if news.length >0
       @last_fetch = news.first[:time]
       @@postman.add_news(news)
+      if @@postman.done_fetch
+        @adapter.update_last_fetch(@source.name, @last_fetch)
+        puts "Success: #{@source.name}  #{@last_fetch}"
+      else
+        puts "Something went wrong sending the news"
+      end
     else
-      puts "Nothing to send"
+      puts "Nothing to send: #{@source.name}"
     end
   end
 

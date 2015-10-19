@@ -8,7 +8,7 @@ require './source_lib/utilities'
 class LaTercera
   def fetch_news(last_fetch = "#{Date.today.to_s} 00:00:00")
     news = Array.new
-    
+
     year  = Date.today.strftime("%Y")
     month = Date.today.strftime("%m")
     day = Date.today.strftime("%d")
@@ -49,5 +49,8 @@ class LaTercera
       aux << f.text
     end
     return aux
+  end
+  def name
+    "LaTercera"
   end
 end

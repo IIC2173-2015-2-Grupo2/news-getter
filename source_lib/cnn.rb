@@ -2,7 +2,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'date'
 require 'time'
-require './utilities'
+require './source_lib/utilities'
 
 
 class CNN
@@ -13,7 +13,7 @@ class CNN
 		day = Date.today.strftime("%d")
 
 		doc = Nokogiri::HTML(open("http://rss.cnn.com/rss/edition.rss"))
-		
+
 		news = doc.xpath("//item").collect do |node|
 			time = node.xpath("pubdate/text()")
 			title = node.xpath('title/text()')
@@ -38,5 +38,9 @@ class CNN
 			noticia
 		end
 		news
+	end
+
+	def name
+		"CNN"
 	end
 end

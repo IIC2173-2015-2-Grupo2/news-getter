@@ -42,4 +42,8 @@ class LaCuarta
     end
     return aux
   end
+
+  def name
+    "LaCuarta"
+  end
 end

@@ -39,4 +39,7 @@ class Emol
     aux = parseBody aux.to_s
     return aux
   end
+  def name
+    "Emol"
+  end
 end

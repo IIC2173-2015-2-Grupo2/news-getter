@@ -25,15 +25,18 @@ class Postman
 					news: @@news
 				}
 			}
-		    send_news('/', options)
+			begin
+		    Postman.send_news('/', options)
 		    puts "Noticias enviadas."
+			rescue
+				return false
+			end
+				true
 		end
 	end
 
 
-	private
-
-	def send_news(uri, object)
+	def self.send_news(uri, object)
 		post(uri, object)
 	end
 end
