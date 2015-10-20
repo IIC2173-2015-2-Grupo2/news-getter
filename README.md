@@ -1,5 +1,5 @@
 # News-Getter
-[![Build Status](https://travis-ci.org/IIC2173-2015-2-Grupo2/news-getter.svg)](https://travis-ci.org/IIC2173-2015-2-Grupo2/news-getter)
+[![Build Status](https://travis-ci.org/IIC2173-2015-2-Grupo2/news-getter.svg)](https://travis-ci.org/IIC2173-2015-2-Grupo2/news-getter) [![Code Climate](https://codeclimate.com/github/IIC2173-2015-2-Grupo2/news-getter/badges/gpa.svg)](https://codeclimate.com/github/IIC2173-2015-2-Grupo2/news-getter)
 
 
 Make sure you have **Ruby 2.2.3** installed.
