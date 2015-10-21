@@ -12,6 +12,10 @@ def parseTime time
 	Time.parse(time).to_s.chomp(" UTC")
 end
 
+def news_builder(title, time, header, url, body, tags)
+  {title: "#{title}", time: "#{time}", header: "#{header}", url: "#{url}", body: "#{body}", tags: "#{tags}" }
+end
+
 def parseHeader header
 	aux = ""
 
