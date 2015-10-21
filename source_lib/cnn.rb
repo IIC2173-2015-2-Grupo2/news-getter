@@ -4,20 +4,15 @@ require 'date'
 require 'time'
 require './source_lib/utilities'
 
-
+# CNN news getter
 class CNN
-	def fetch_news(last_fetch = "#{Date.today.to_s} 00:00:00")
-		news = Array.new
-		year  = Date.today.strftime("%Y")
-		month = Date.today.strftime("%m")
-		day = Date.today.strftime("%d")
+  def fetch_news(last_fetch = "#{Date.today.to_s} 00:00:00")
+    doc = Nokogiri::HTML(open("http://rss.cnn.com/rss/edition.rss"))
 
-		doc = Nokogiri::HTML(open("http://rss.cnn.com/rss/edition.rss"))
-
-		news = doc.xpath("//item").collect do |node|
-			time = node.xpath("pubdate/text()")
-			title = node.xpath('title/text()')
-			header = node.xpath("description/text()")
+    news = doc.xpath("//item").collect do |node|
+		  time = node.xpath("pubdate/text()")
+	    title = node.xpath('title/text()')
+	    header = node.xpath("description/text()")
 			url = node.xpath("guid/text()")
 
 			doc2 = Nokogiri::HTML(open(url.to_s))
@@ -36,9 +31,9 @@ class CNN
 			noticia = {title: "#{title}", time: "#{time}", header: "#{header}", url: "#{url}", body: "#{body}" }
 
 			noticia
-		end
+    end
 		news
-	end
+  end
 
 	def name
 		"CNN"

@@ -1,5 +1,6 @@
 require './Postman'
 
+# this dude does the work of joining the different parts
 class Worker
   attr_accessor :source
   attr_accessor :last_fetch
@@ -19,7 +20,7 @@ class Worker
     rescue
       puts "Something went wrong getting the news. Try again later"
     end
-    news ||= Array.new
+    news ||= []
 
     if news.length >0
       @last_fetch = news.first[:time]
@@ -34,5 +35,4 @@ class Worker
       puts "Nothing to send: #{@source.name}"
     end
   end
-
 end

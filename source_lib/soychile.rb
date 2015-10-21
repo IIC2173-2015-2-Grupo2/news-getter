@@ -4,15 +4,9 @@ require 'date'
 require 'time'
 require './source_lib/utilities'
 
-
+# SoyChile news getter
 class SoyChile
   def fetch_news(last_fetch = "#{Date.today.to_s} 00:00:00")
-    news = Array.new
-
-    year  = Date.today.strftime("%Y")
-    month = Date.today.strftime("%m")
-    day = Date.today.strftime("%d")
-
     doc = Nokogiri::HTML(open("http://feeds.feedburner.com/Soychilecl-todas?format=xml"))
 
     doc.xpath("//item").each do |node|

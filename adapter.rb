@@ -1,7 +1,7 @@
 require "sqlite3"
 
+# adapter for db
 class Adapter
-
   attr_accessor :db
 
   def initialize
@@ -10,7 +10,7 @@ class Adapter
 
   def create_db
     # Create a database
-    rows = @db.execute <<-SQL
+    @db.execute <<-SQL
     create table sources (
       source varchar(30),
       last_fetch varchar(30)
@@ -53,5 +53,4 @@ class Adapter
       puts "Could not create source. Did you create the database (create_db)"
     end
   end
-
 end

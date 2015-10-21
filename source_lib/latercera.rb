@@ -4,15 +4,9 @@ require 'date'
 require 'time'
 require './source_lib/utilities'
 
-
+# La cuarta news getter
 class LaTercera
   def fetch_news(last_fetch = "#{Date.today.to_s} 00:00:00")
-    news = Array.new
-
-    year  = Date.today.strftime("%Y")
-    month = Date.today.strftime("%m")
-    day = Date.today.strftime("%d")
-
     doc = Nokogiri::HTML(open("http://www.tercera.cl/feed/manager?type=rss&sc=TEFURVJDRVJB"))
 
     news = doc.xpath("//item").collect do |node|
@@ -50,6 +44,7 @@ class LaTercera
     end
     return aux
   end
+
   def name
     "LaTercera"
   end

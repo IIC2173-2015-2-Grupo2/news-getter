@@ -4,10 +4,9 @@ require 'date'
 require 'time'
 require './source_lib/utilities'
 
-
+# emol news getter
 class Emol
   def fetch_news(last_fetch = "#{Date.today.to_s} 00:00:00")
-    news = Array.new
     year  = Date.today.strftime("%Y")
     month = Date.today.strftime("%m")
     day = Date.today.strftime("%d")
@@ -39,6 +38,7 @@ class Emol
     aux = parseBody aux.to_s
     return aux
   end
+
   def name
     "Emol"
   end
