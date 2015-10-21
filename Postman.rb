@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'httparty'
 
+# this class send (posts) the news to the analyzer
 class Postman
 	include HTTParty
 	base_uri 'http://localhost:4567'
@@ -34,7 +35,6 @@ class Postman
 				true
 		end
 	end
-
 
 	def self.send_news(uri, object)
 		post(uri, object)

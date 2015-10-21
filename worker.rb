@@ -1,5 +1,6 @@
 require './Postman'
 
+# this dude does the work of joining the different parts
 class Worker
   attr_accessor :source
   attr_accessor :last_fetch
@@ -7,7 +8,7 @@ class Worker
   attr_accessor :adapter
 
   def initialize(postman, source, adapter)
-    @@postman = postman
+    @postman = postman
     @source = source
     @adapter = adapter
     @last_fetch = @adapter.last_fetch source.name
@@ -19,9 +20,9 @@ class Worker
     rescue
       puts "Something went wrong getting the news. Try again later"
     end
-    news ||= Array.new
+    news ||= []
 
-    if news.length >0
+    if news.length > 0
       @last_fetch = news.first[:time]
       @@postman.add_news(news)
       if @@postman.done_fetch
@@ -34,5 +35,4 @@ class Worker
       puts "Nothing to send: #{@source.name}"
     end
   end
-
 end

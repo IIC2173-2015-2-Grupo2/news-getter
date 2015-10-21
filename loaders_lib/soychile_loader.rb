@@ -1,4 +1,4 @@
-require './Worker'
+require './worker'
 require './Postman'
 require './adapter'
 require './source_lib/soychile'
