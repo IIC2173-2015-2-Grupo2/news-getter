@@ -26,9 +26,7 @@ class Emol
       doc2 = Nokogiri::HTML(open(url.to_s))
       body = fetch_body doc2
 
-      noticia = {title: "#{title}", time: "#{time}", header: "#{header}", url: "#{url}", body: "#{body}", tags: "#{tags}" }
-
-      noticia
+      {title: "#{title}", time: "#{time}", header: "#{header}", url: "#{url}", body: "#{body}", tags: "#{tags}" }
     end
     news
   end

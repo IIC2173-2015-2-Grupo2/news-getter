@@ -2,7 +2,6 @@
 set :output, "./config/cron_log.log"
 set :job_template, "/bin/bash --login -l -c ':job'"
 
-
 #Here are the cron jobs to be done
 every '1,14,27,40,53 * * * *' do
   puts "Emol cron job"
