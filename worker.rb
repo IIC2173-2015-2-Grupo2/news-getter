@@ -8,7 +8,7 @@ class Worker
   attr_accessor :adapter
 
   def initialize(postman, source, adapter)
-    @@postman = postman
+    @postman = postman
     @source = source
     @adapter = adapter
     @last_fetch = @adapter.last_fetch source.name
@@ -22,7 +22,7 @@ class Worker
     end
     news ||= []
 
-    if news.length >0
+    if news.length > 0
       @last_fetch = news.first[:time]
       @@postman.add_news(news)
       if @@postman.done_fetch

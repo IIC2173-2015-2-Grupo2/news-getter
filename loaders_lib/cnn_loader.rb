@@ -1,5 +1,5 @@
 require './worker'
-require './postman'
+require './Postman'
 require './adapter'
 require './source_lib/cnn'
 

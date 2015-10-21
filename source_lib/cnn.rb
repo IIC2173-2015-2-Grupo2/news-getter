@@ -28,9 +28,7 @@ class CNN
 			header = parseHeader header.to_s
 			body = parseBody body.to_s
 
-			noticia = {title: "#{title}", time: "#{time}", header: "#{header}", url: "#{url}", body: "#{body}" }
-
-			noticia
+			news_builder(title, time, header, url, body, "")
     end
 		news
   end

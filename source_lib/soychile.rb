@@ -21,8 +21,7 @@ class SoyChile
       body = fetch_body node.to_s
       tags = ""
 
-      noticia = {title: "#{title}", time: "#{time}", header: "#{header}", url: "#{url}", body: "#{body}", tags: "#{tags}" }
-
+      noticia = news_builder(title, time, header, url, body, tags)
       news << noticia
     end
     news

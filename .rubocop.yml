@@ -39,6 +39,9 @@ Metrics/MethodLength:
 Metrics/PerceivedComplexity:
   Max: 14
 
+Metrics/ParameterLists:
+  Max: 6
+
 # Offense count: 2
 Style/ClassVars:
   Exclude:

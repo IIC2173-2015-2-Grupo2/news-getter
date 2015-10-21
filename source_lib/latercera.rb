@@ -22,9 +22,7 @@ class LaTercera
       body = fetch_body doc2
       tags = fetch_tags doc2
 
-      noticia = {title: "#{title}", time: "#{time}", header: "#{header}", url: "#{url}", body: "#{body}", tags: "#{tags}" }
-
-      noticia
+      news_builder(title, time, header, url, body, tags)
     end
     news
   end
