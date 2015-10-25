@@ -24,8 +24,8 @@ class Worker
 
     if news.length > 0
       @last_fetch = news.first[:time]
-      @@postman.add_news(news)
-      if @@postman.done_fetch
+      @postman.add_news(news)
+      if @postman.done_fetch
         @adapter.update_last_fetch(@source.name, @last_fetch)
         puts "Success: #{@source.name}  #{@last_fetch}"
       else
