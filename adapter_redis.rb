@@ -46,10 +46,3 @@ class Adapter
   end
 
 end
-
-
-redis = Redis.new(:host => ENV["REDIS_HOST"], :port => ENV["REDIS_PORT"], :db =>ENV["REDIS_DB"])
-puts redis.get("emol")
-host = ENV["REDIS_HOST"]
-port = ENV["REDIS_PORT"]
-puts "INFO #{host}   #{port}"
