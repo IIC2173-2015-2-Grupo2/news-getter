@@ -22,6 +22,9 @@ gem 'puma'
 # simple db
 gem "sqlite3"
 
+# key-value db
+gem "redis"
+
 # setup our test group and require rspec
 group :test do
   gem "rspec"

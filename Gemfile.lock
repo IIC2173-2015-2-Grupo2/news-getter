@@ -15,6 +15,7 @@ GEM
     rack-protection (1.5.3)
       rack
     rake (10.4.2)
+    redis (3.2.1)
     rspec (3.3.0)
       rspec-core (~> 3.3.0)
       rspec-expectations (~> 3.3.0)
@@ -44,6 +45,7 @@ DEPENDENCIES
   nokogiri
   puma
   rake
+  redis
   rspec
   rufus-scheduler
   sinatra
