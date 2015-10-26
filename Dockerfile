@@ -1,2 +1,2 @@
-FROM ruby:2.2.3-onbuild
-CMD ["bundle", "exec", "rackup", "--host", "0.0.0.0", "-p", "5000"]
+FROM ruby:2.1-onbuild
+CMD["./your-daemon-or-script.rb"]

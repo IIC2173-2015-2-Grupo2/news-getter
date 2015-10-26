@@ -4,7 +4,7 @@ require 'httparty'
 # this class send (posts) the news to the analyzer
 class Postman
 	include HTTParty
-	base_uri 'http://localhost:4567'
+	base_uri "http://#{ENV['URI_ANALYZER']}"
 
 	attr_accessor :news
 

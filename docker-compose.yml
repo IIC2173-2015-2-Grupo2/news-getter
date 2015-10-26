@@ -1,0 +1,7 @@
+web:
+  build: .
+  command: ruby main.rb
+  volumes:
+    - .:/usr/src/app
+  ports:
+    - "4567:4567"

@@ -1,11 +1,16 @@
 source "http://rubygems.org/"
 
-ruby "2.2.3"
+ruby "2.2.2"
 
 gem "rake"
 
+# use to post data
 gem 'httparty'
 
+# use for scheduling
+gem 'rufus-scheduler'
+
+# use for scrapping
 gem 'nokogiri'
 
 # declare the sinatra dependency
@@ -14,8 +19,11 @@ gem "sinatra"
 # Puma webserver
 gem 'puma'
 
-# Crons
-gem 'whenever', require: false
+# simple db
+gem "sqlite3"
+
+# key-value db
+gem "redis"
 
 # setup our test group and require rspec
 group :test do
