@@ -11,9 +11,9 @@ docker-build:
 
 # Start application on port 5000
 docker-run:
-	docker run --publish 5000:5000 --name $(NAME) --rm $(NAME)
+	docker run -e REDIS_HOST=$(REDIS_HOST) -p 80:9494 --name $(NAME) --rm $(NAME)
 
 # Build and run
 docker:
 	make docker-build
-	make docker-run
+#	make docker-run

@@ -7,8 +7,10 @@ class Postman
 	base_uri "http://#{ENV['URI_ANALYZER']}"
 
 	attr_accessor :news
-
+	attr_accessor :url
 	def initialize
+		@url = ENV["URL_ANALYZER"]
+		@url = "/" if @url==""
 		@@news = []
 	end
 

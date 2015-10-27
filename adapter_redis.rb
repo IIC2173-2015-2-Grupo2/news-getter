@@ -8,7 +8,7 @@ class Adapter
 
 # initialize the class and the conection
   def initialize
-    @redis = Redis.new(:host => ENV["REDIS_HOST"], :port => ENV["REDIS_PORT"], :db =>ENV["REDIS_DB"])
+    @redis = Redis.new(:host => 'redis', :port => 6379)
   end
 
 # create databse with some info
