@@ -1,0 +1,10 @@
+news-getter:
+  build: .
+  ports:
+    - "8080:9494"
+  volumes:
+   - .:/usr/src/app
+  links:
+    - redis
+redis:
+  image: redis

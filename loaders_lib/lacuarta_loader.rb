@@ -1,6 +1,6 @@
 require './worker'
 require './Postman'
-require './adapter'
+require './adapter_redis'
 require './source_lib/lacuarta'
 
 w = Worker.new(Postman.new, LaCuarta.new, Adapter.new)

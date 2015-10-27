@@ -5,69 +5,31 @@
 Make sure you have **Ruby 2.2.3** installed.
 You can use [RVM](https://rvm.io/) or [rbenv](https://github.com/sstephenson/rbenv).
 
-## Setup
-- correr script `config_db.rb`
-- `whenever --update-cron`
+In this repository you will find all the news-getter related files.
 
-Ojo que puede que haya que adaptar el archivo config/scheduler.rb dependiendo del computador.
+## Setup with docker
 
+(you will need docker-compose for this)
 
-### Explicacion Simple
-Tenemos clases de tipo sourse como Emol o CNN que tienen un metodo `fetch_news` que devuelve
-un arreglo de noticias. Estas clases son usadas por los *workers* al hacer `work`. Tambien se usa **Postman** para
-enviar las noticias. El *scheduler* se encarga de administrar a los trabajadores.
+Fist we need to build the image of the application. We also need an image of redis that
+will be use as a small database. To build and create this images run:
 
+$ docker-compose up
 
-#### `rbenv`
-```sh
-$ rbenv install 2.2.3
-$ rbenv global 2.2.3
-$ ruby -v
-```
+This should create two docker container, one with the up another with redis, and start
+running them.
 
-## Local
+That was easy... But wait we are not sending the news yet beacause the app doesn't know
+where to send them. Kill that ignorant process and start a more erudite one.
+But before that, let say we want to send the news to:
 
-### Setup
+ www.iwantnews.cl/now
 
-Install [bunlder](http://bundler.io/):
-```sh
-$ gem install --no-ri --no-rdoc bundler
+then we have two parts first the host www.iwantnews.cl and then api direction /now.
+Two start a process that send news there all we have to do is run:
 
-# if using rbenv
-$ rbenv rehash
-```
+$ docker-compose run -e URI_ANALYZER=www.iwantnews.cl -e URL_ANALYZER=now news-getter
 
-Install gems:
-```sh
-$ bundle install
-```
-
-### Run
-```sh
-$ rackup -p 5000
-
-# Available on:
-# http://localhost:5000/
-```
-
-## Docker
-
-```sh
-# Create VM
-$ docker-machine create --driver virtualbox news-getter
-
-# Setup
-$ eval "$(docker-machine env news-getter)"
-```
-
-### Run
-
-Run on port 5000, to see the Virtual Machine IP:
-```sh
-$ docker-machine ip news-getter
-```
-
-Build and run:
-```sh
-$ make docker
-```
+Thats it. If everything is fine you can get the status by going to
+yourdomain.cl/how-are-you (be warn, it's a bit cranky)
+Or even better you can get the schedulers log by going yourdomain.cl/log
