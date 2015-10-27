@@ -19,6 +19,5 @@ get '/log' do
   send_file "cron_log.log"
 end
 
-
 # start scheduler in the background
 system "ruby scheduler.rb &"

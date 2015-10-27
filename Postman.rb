@@ -10,7 +10,7 @@ class Postman
 	attr_accessor :url
 	def initialize
 		@url = ENV["URL_ANALYZER"]
-		@url = "/" if @url==""
+		@url = "/" if @url == ""
 		@@news = []
 	end
 
