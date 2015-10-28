@@ -6,5 +6,6 @@
   "time" :  "pubdate/text()",
   "header" : "description/text()",
   "body": ["nonononononno", false],
-  "tags" : ["//ufdsfs", false]
+  "tags" : ["//ufdsfs", false],
+  "special" : true
 }

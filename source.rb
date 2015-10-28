@@ -33,10 +33,17 @@ class Source
 
 # collect a particular news
   def collect_news_item(node, data)
-    h = Hash[data.keys[2..-1].map {|x| [x, node.xpath(data[x]).to_s] if( x !="body" or x != "tags")}]
+    h = Hash[data.keys[2..-1].map {|x| [x, node.xpath(data[x]).to_s] if( x !="body" or x != "tags" or x != "special")}]
     h["body"] = get_body(h["url"], data["body"])
     h["tags"] = fetch_tags(h["url"], data["tags"]) if data["tags"].last
+    h["url"] = fetch_url(node.to_s) if data["special"]
     h
+  end
+
+  def fetch_url(body)
+    aux = body.split('<link>').last
+    aux = aux.split('<pubdate>').first
+    aux
   end
 
 # get the body of a news
@@ -47,11 +54,12 @@ class Source
     if body[1]
       aux = get_body1(doc, body)
     else
-      aux = get_body2
+      aux = get_body2(doc, body)
     end
     rescue
       puts "could not find body"
     end
+    aux
   end
 
   def get_body1(doc, body)
@@ -64,8 +72,6 @@ class Source
       aux = aux + p.text + '\n'
     end
     aux
-  end
-
   end
 
 # fetch tags if possible
