@@ -9,9 +9,11 @@ require './source_lib/utilities'
 class Source
 
   attr_accessor :filename
+  attr_accessor :extras
 
   def initialize(filename)
     @filename = filename
+    @extras = ["body", "tags", "special"]
   end
 
 # main method to fetch news
@@ -33,7 +35,7 @@ class Source
 
 # collect a particular news
   def collect_news_item(node, data)
-    h = Hash[data.keys[2..-1].map {|x| [x, node.xpath(data[x]).to_s] if( x !="body" or x != "tags" or x != "special")}]
+    h = Hash[data.keys[2..-1].map {|x| [x, node.xpath(data[x]).to_s] unless @extras.include? x}]
     h["body"] = get_body(h["url"], data["body"])
     h["tags"] = fetch_tags(h["url"], data["tags"]) if data["tags"].last
     h["url"] = fetch_url(node.to_s) if data["special"]
