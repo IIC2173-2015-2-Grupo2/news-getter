@@ -17,7 +17,9 @@ In this repository you will find all the news-getter related files.
 Fist we need to build the image of the application. We also need an image of redis that
 will be use as a small database. To build and create this images run:
 
+```sh
 $ docker-compose up
+```
 
 This should create two docker container, one with the up another with redis, and start
 running them.
@@ -26,13 +28,15 @@ That was easy... But wait we are not sending the news yet beacause the app doesn
 where to send them. Kill that ignorant process and start a more erudite one.
 But before that, let say we want to send the news to:
 
- www.iwantnews.cl/now
+ > www.iwantnews.cl/now
 
-then we have two parts first the host www.iwantnews.cl and then api direction /now.
+then we have two parts first the host www.iwantnews.cl and then api direction `/now`.
 Two start a process that send news there all we have to do is run:
 
+```sh
 $ docker-compose run -e URI_ANALYZER=www.iwantnews.cl -e URL_ANALYZER=now news-getter
+```
 
 Thats it. If everything is fine you can get the status by going to
-yourdomain.cl/how-are-you (be warn, it's a bit cranky)
-Or even better you can get the schedulers log by going yourdomain.cl/log
+`yourdomain.cl/how-are-you` (be warn, it's a bit cranky)
+Or even better you can get the schedulers log by going `yourdomain.cl/log`.
