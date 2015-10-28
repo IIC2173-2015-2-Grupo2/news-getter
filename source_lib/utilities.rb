@@ -1,3 +1,4 @@
+# general utilities to parse news
 require 'time'
 def to_time( year, month,day, time, sec='00')
 	x = "#{year}-#{month}-#{day} #{time}:#{sec}"

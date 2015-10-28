@@ -20,6 +20,7 @@ class Adapter
     Dir["./source_lib/*.json"].each do |source|
       @redis.set(source, "2000-01-01 00:00:00")
     end
+    @redis.set("SOURCES",Dir["./source_lib/*.json"].count)
   end
 
 # get last fetch
@@ -30,6 +31,16 @@ class Adapter
       "Could not fetch data. Did you create the database (create_db)"
     end
   end
+
+  # get source count
+  def source_count
+    begin
+      return @redis.get("SOURCES")
+    rescue
+      "Could not fetch data. Did you create the database (create_db)"
+    end
+  end
+
 
 # update last_fetch
   def update_last_fetch(source, update)
@@ -44,6 +55,9 @@ class Adapter
   def new_source(source)
     begin
       @redis.set(source, "2000-01-01 00:00:00")
+      a = @redis.get("SOURCES")
+      a = a +1
+      @redis.set("SOURCES", a)
     rescue
       puts "Could not create source. Did you create the database (create_db)"
     end

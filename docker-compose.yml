@@ -1,7 +1,7 @@
 news-getter:
   build: .
   ports:
-    - "8080:9494"
+    - "80:9494"
   volumes:
    - .:/usr/src/app
   links:

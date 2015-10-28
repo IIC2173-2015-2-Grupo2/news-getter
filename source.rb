@@ -5,6 +5,7 @@ require 'json'
 require 'date'
 require './source_lib/utilities'
 
+# Source strategy
 class Source
 
   attr_accessor :filename
@@ -13,10 +14,12 @@ class Source
     @filename = filename
   end
 
+# main method to fetch news
   def fetch_news(last_fetch = "#{Date.today.to_s} 00:00:00")
     x = build_news(parse_json(@filename), last_fetch)
   end
 
+# here it builds the news array
   def build_news(data, last_fetch)
     doc = Nokogiri::HTML(open(data["origin"]))
     news = doc.xpath(data["news"]).collect do |node|
@@ -28,7 +31,7 @@ class Source
     news
   end
 
-
+# collect a particular news
   def collect_news_item(node, data)
     h = Hash[data.keys[2..-1].map {|x| [x, node.xpath(data[x]).to_s] if( x !="body" or x != "tags")}]
     h["body"] = get_body(h["url"], data["body"])
@@ -36,24 +39,36 @@ class Source
     h
   end
 
+# get the body of a news
   def get_body(url, body)
     begin
     doc = Nokogiri::HTML(open(url))
     aux = ""
     if body[1]
-      aux = parseBody doc.xpath(body[0]).first.to_s
+      aux = get_body1(doc, body)
     else
-      aux = ""
-      doc.xpath(body[0]).each do |p|
-        aux = aux + p.text + '\n'
-      end
-      aux
+      aux = get_body2
     end
     rescue
       puts "could not find body"
     end
   end
 
+  def get_body1(doc, body)
+    parseBody doc.xpath(body[0]).first.to_s
+  end
+
+  def get_body2(doc, body)
+    aux = ""
+    doc.xpath(body[0]).each do |p|
+      aux = aux + p.text + '\n'
+    end
+    aux
+  end
+
+  end
+
+# fetch tags if possible
   def fetch_tags(url, tags)
     doc = Nokogiri::HTML(open(url))
     aux = []
@@ -63,7 +78,7 @@ class Source
     return aux
   end
 
-
+# returns its name
   def name
     @filename
   end
