@@ -1,0 +1,10 @@
+{
+  "origin" : "http://www.emol.com/noticias/#{year}/#{month}/#{day}",
+  "news" : "//li[contains(@id, 'cuTodas_ucCajaTodas_ListadoNoticias')]",
+  "title" : "div[contains(@class, 'listado')]/a/text()",
+  "time" :  "div[contains(@class, 'hora_listado')]/text()",
+  "header" : "div[contains(@class, 'listado')]/span/text()",
+  "url" : "div[contains(@class, 'listado')]/a/@href",
+  "body": ["//div[contains(@id, 'cuDetalle_cuTexto_textoNoticia')]", true],
+  "tags" : ["bnflnbnnbg", false]
+}

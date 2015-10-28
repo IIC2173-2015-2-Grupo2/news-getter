@@ -14,6 +14,7 @@ class Worker
     @last_fetch = @adapter.last_fetch source.name
   end
 
+  # the source gives news to the worker that then he gives to postman
   def work
     begin
       news = @source.fetch_news @last_fetch

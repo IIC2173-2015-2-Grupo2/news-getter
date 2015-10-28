@@ -16,6 +16,10 @@ class Adapter
     ["CNN", "Emol", "LaCuarta", "LaTercera", "SoyChile"].each do |source|
       @redis.set(source, "2000-01-01 00:00:00")
     end
+
+    Dir["./source_lib/*.json"].each do |source|
+      @redis.set(source, "2000-01-01 00:00:00")
+    end
   end
 
 # get last fetch

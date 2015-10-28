@@ -1,0 +1,10 @@
+{
+  "origin" : "http://feeds.feedburner.com/Soychilecl-todas?format=xml",
+  "news" : "//item",
+  "title" : "title/text()",
+  "time" :  "pubdate/text()",
+  "header" : "description/text()",
+  "url" : "guid/text()",
+  "body": ["nonononononno", false],
+  "tags" : ["//ufdsfs", false]
+}
