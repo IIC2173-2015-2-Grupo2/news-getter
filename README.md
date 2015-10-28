@@ -1,5 +1,5 @@
 # News-Getter
-[![Build Status](https://travis-ci.org/IIC2173-2015-2-Grupo2/news-getter.svg)](https://travis-ci.org/IIC2173-2015-2-Grupo2/news-getter) [![Code Climate](https://codeclimate.com/github/IIC2173-2015-2-Grupo2/news-getter/badges/gpa.svg)](https://codeclimate.com/github/IIC2173-2015-2-Grupo2/news-getter)
+[![Build Status](https://travis-ci.org/IIC2173-2015-2-Grupo2/news-getter.svg)](https://travis-ci.org/IIC2173-2015-2-Grupo2/news-getter) [![Code Climate](https://codeclimate.com/github/IIC2173-2015-2-Grupo2/news-getter/badges/gpa.svg)](https://codeclimate.com/github/IIC2173-2015-2-Grupo2/news-getter) [![Codacy Badge](https://api.codacy.com/project/badge/81cac95eb3e14bfd8ab8c438689105e0)](https://www.codacy.com/app/lopezjuripatricio/news-getter)
 
 > Styleguide: [ruby-style-guide](https://github.com/bbatsov/ruby-style-guide) | Linter: [rubocop](https://github.com/bbatsov/rubocop)
 
