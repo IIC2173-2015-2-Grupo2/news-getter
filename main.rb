@@ -3,7 +3,7 @@ system "ruby config_db.rb"
 
 # simple server
 require 'sinatra'
-require './adapter_redis'
+require './mobile_adapter'
 
 set :port, 9494
 set :bind, '0.0.0.0'
@@ -21,9 +21,7 @@ get '/log' do
 end
 
 post '/new-source' do
-  a = Adapter.new
-  File.write("#{Dir.pwd}/source_lib/source#{a.source_count}.json", params.to_s)
-  a.new_source("#{Dir.pwd}/source_lib/source#{a.source_count}.json")
+  MobileCode.add_source(param["file"]) if params["key"] = ENV["MOBILE_KEY"]
   "New Source On lib"
 end
 
