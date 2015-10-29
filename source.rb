@@ -35,7 +35,7 @@ class Source
 
 # collect a particular news
   def collect_news_item(node, data)
-    h = Hash[data.keys[2..-1].map {|x| [x, node.xpath(data[x]).to_s] unless @extras.include? x}]
+    h = Hash[data.keys[2..5].map {|x| [x, node.xpath(data[x]).to_s]}]
     h["body"] = get_body(h["url"], data["body"])
     h["tags"] = fetch_tags(h["url"], data["tags"]) if data["tags"].last
     h["url"] = fetch_url(node.to_s) if data["special"]
