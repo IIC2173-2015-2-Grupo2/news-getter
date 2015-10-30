@@ -3,12 +3,11 @@ require "redis"
 
 # Simple adapter for redis
 class Adapter
-
   attr_accessor :redis
 
-# initialize the class and the conection
+  # initialize the class and the conection
   def initialize
-    @redis = Redis.new(:host => 'redis', :port => 6379)
+    @redis = Redis.new(host: 'redis', port: 6379)
   end
 
   # erase the info
@@ -19,13 +18,14 @@ class Adapter
 
   Dir["./source_lib/*.json"].each do |source|
     @redis.set(source, "2000-01-01 00:00:00")
+
   end
   @redis.set("SOURCES",Dir["./source_lib/*.json"].count)
 end
 
 
 
-# get last fetch
+  # get last fetch
   def last_fetch source
     begin
       res = @redis.get(source)
@@ -46,14 +46,12 @@ end
 
 # update last_fetch
   def update_last_fetch(source, update)
-    begin
-      @redis.set(source, update)
-    rescue
-      puts "Could not update data. Did you insert the source (new_source)"
-    end
+    @redis.set(source, update)
+  rescue
+    puts "Could not update data. Did you insert the source (new_source)"
   end
 
-# add a new source to the database
+  # add a new source to the database
   def new_source(source)
     begin
       @redis.set(source, "2000-01-01 00:00:00")
@@ -63,5 +61,4 @@ end
     rescue
     end
   end
-
 end
