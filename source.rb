@@ -27,7 +27,7 @@ class Source
     news = doc.xpath(data["news"]).collect do |node|
       x = collect_news_item(node, data)
       time = parseTime x["time"].to_s
-      puts last_fetch
+      x["time"] = time.to_s
       break if !earlier?(last_fetch, time)
       x
     end
@@ -37,7 +37,8 @@ class Source
 # collect a particular news
   def collect_news_item(node, data)
     h = Hash[data.keys[2..5].map {|x| [x, node.xpath(data[x]).to_s]}]
-    get_extras(h, node, data)
+    h = get_extras(h, node, data)
+
   end
 
 # gets te rest of the important stuff
@@ -48,9 +49,13 @@ class Source
     aux = data["image"]
     if aux != nil
       hash["image"] = get_image(hash["url"], aux) unless aux[0] == 0
+    else
+      hash["image"] = ""
     end
+    hash["image"] = get_any_image(hash["url"]) if hash["image"] == ""
     hash
   end
+  # gets the url of some sources
   def fetch_url(body)
     aux = body.split('<link>').last
     aux = aux.split('<pubdate>').first
@@ -108,6 +113,16 @@ class Source
       aux << f.text
     end
     return aux
+  end
+
+  def get_any_image(url)
+    x = ""
+    begin
+      doc = Nokogiri::HTML(open(url))
+      x = doc.xpath("//img[contains(@src, 'http')]/@src").first.to_s
+    rescue
+    end
+    x
   end
 
 # returns its name

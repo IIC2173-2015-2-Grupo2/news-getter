@@ -10,7 +10,7 @@ def earlier? (time1, time2)
 end
 
 def parseTime time
-	Time.parse(time).to_s.chomp(" UTC")
+	Time.parse(time).to_s.chomp(" UTF")
 end
 
 def parseHeader header
