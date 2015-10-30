@@ -27,37 +27,46 @@ class Source
     news = doc.xpath(data["news"]).collect do |node|
       x = collect_news_item(node, data)
       time = parseTime x["time"].to_s
-      puts last_fetch
-      break if !earlier?(last_fetch, time)
+      x["time"] = time.to_s
+      break unless earlier?(last_fetch, time)
       x
     end
     news
   end
 
-# collect a particular news
+  # collect a particular news
   def collect_news_item(node, data)
-    h = Hash[data.keys[2..5].map {|x| [x, node.xpath(data[x]).to_s]}]
+    h = Hash[data.keys[2..5].map { |x| [x, node.xpath(data[x]).to_s] }]
+    h["title"] = h["title"].gsub(/[^a-zA-Z0-9\- ]/, "")
+    h["header"] = h["header"].gsub(/[^a-zA-Z0-9\- ]/, "")
     get_extras(h, node, data)
   end
 
 # gets te rest of the important stuff
   def get_extras(hash, node, data)
     hash["body"] = get_body(hash["url"], data["body"])
+    hash["body"] = hash["body"].gsub(/[^a-zA-Z0-9\- ]/,"")  if (hash["body"] != nil)
+    hash["tags"] = Array.new
     hash["tags"] = fetch_tags(hash["url"], data["tags"]) if data["tags"].last
     hash["url"] = fetch_url(node.to_s) if data["special"]
     aux = data["image"]
     if aux != nil
       hash["image"] = get_image(hash["url"], aux) unless aux[0] == 0
+    else
+      hash["image"] = ""
     end
+    hash["image"] = get_any_image(hash["url"]) if hash["image"] == ""
     hash
   end
+
+  # gets the url of some sources
   def fetch_url(body)
     aux = body.split('<link>').last
     aux = aux.split('<pubdate>').first
     aux
   end
 
-# get the body of a news
+  # get the body of a news
   def get_body(url, body)
     begin
     doc = Nokogiri::HTML(open(url))
@@ -108,6 +117,16 @@ class Source
       aux << f.text
     end
     return aux
+  end
+
+  def get_any_image(url)
+    x = ""
+    begin
+      doc = Nokogiri::HTML(open(url))
+      x = doc.xpath("//img[contains(@src, 'http')]/@src").first.to_s
+    rescue
+    end
+    x
   end
 
 # returns its name

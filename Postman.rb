@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'httparty'
+require 'json'
 
 # this class send (posts) the news to the analyzer
 class Postman
@@ -19,6 +20,7 @@ class Postman
 		noticia.each do |n|
 			@@news << n
 		end
+
 	end
 
 # check if there is something to send. if there is send it
@@ -26,10 +28,10 @@ class Postman
 		if !@@news.nil?
 			puts "Enviando noticias..."
 			options = {
-				body: {
-					news: @@news
-				}
+				header: {'Content-type' => 'application/json'},
+				body: @@news.to_json
 			}
+			puts options
 			begin
 		    Postman.send_news(@url, options)
 		    puts "Noticias enviadas."
