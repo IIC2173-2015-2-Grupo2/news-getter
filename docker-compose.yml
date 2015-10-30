@@ -6,5 +6,9 @@ news-getter:
    - .:/usr/src/app
   links:
     - redis
+  environment:
+    - URI_ANALYZER
+    - URL_ANALYZER
+    - MOBILE_KEYS
 redis:
   image: redis

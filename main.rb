@@ -6,6 +6,7 @@ require './mobile_code'
 
 set :port, 9494
 set :bind, '0.0.0.0'
+set :environment, :production
 
 get '/hi' do
   "Hi there"
@@ -25,4 +26,4 @@ post '/new-source' do
 end
 
 # start scheduler in the background
-system "ruby scheduler.rb"
+system "ruby scheduler.rb &"
