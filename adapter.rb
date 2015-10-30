@@ -19,9 +19,9 @@ class Adapter
 
     {
     "CNN" => "2000-01-01 00:00:00",
-    "Emol" => "2000-01-01 00:00:00",
+    "./source_lib/emol.json" => "2000-01-01 00:00:00",
     "LaCuarta" => "2000-01-01 00:00:00",
-    "LaTercera" => "2000-01-01 00:00:00",
+    "./source_lib/latercera.json" => "2000-01-01 00:00:00",
     "SoyChile" => "2000-01-01 00:00:00"
     }.each do |pair|
     @db.execute "insert into sources values ( ?, ? )", pair

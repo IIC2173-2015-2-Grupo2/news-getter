@@ -1,4 +1,5 @@
 require './Postman'
+require 'json'
 
 # this dude does the work of joining the different parts
 class Worker
@@ -21,6 +22,7 @@ class Worker
     rescue
       puts "Something went wrong getting the news. Try again later"
     end
+
     news ||= []
 
     if news.length > 0

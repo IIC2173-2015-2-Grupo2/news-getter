@@ -37,6 +37,8 @@ class Source
 # collect a particular news
   def collect_news_item(node, data)
     h = Hash[data.keys[2..5].map {|x| [x, node.xpath(data[x]).to_s]}]
+    h["title"] = h["title"].gsub(/[^a-zA-Z0-9\- ]/,"")
+    h["header"] = h["header"].gsub(/[^a-zA-Z0-9\- ]/,"")
     h = get_extras(h, node, data)
 
   end
@@ -44,6 +46,8 @@ class Source
 # gets te rest of the important stuff
   def get_extras(hash, node, data)
     hash["body"] = get_body(hash["url"], data["body"])
+    hash["body"] = hash["body"].gsub(/[^a-zA-Z0-9\- ]/,"")  if (hash["body"] != nil)
+    hash["tags"] = Array.new
     hash["tags"] = fetch_tags(hash["url"], data["tags"]) if data["tags"].last
     hash["url"] = fetch_url(node.to_s) if data["special"]
     aux = data["image"]
