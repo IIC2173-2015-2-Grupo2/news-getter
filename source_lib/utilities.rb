@@ -1,3 +1,4 @@
+# general utilities to parse news
 require 'time'
 def to_time( year, month,day, time, sec='00')
 	x = "#{year}-#{month}-#{day} #{time}:#{sec}"
@@ -10,10 +11,6 @@ end
 
 def parseTime time
 	Time.parse(time).to_s.chomp(" UTC")
-end
-
-def news_builder(title, time, header, url, body, tags)
-  {title: "#{title}", time: "#{time}", header: "#{header}", url: "#{url}", body: "#{body}", tags: "#{tags}" }
 end
 
 def parseHeader header
@@ -54,6 +51,23 @@ def parseHeader header
 	end
 
 	aux
+end
+
+def news_builder(title, time, header, url, body, tags)
+	{title: "#{title}", time: "#{time}", header: "#{header}", url: "#{url}", body: "#{body}", tags: "#{tags}" }
+end
+
+def parse_json(filename)
+	file = File.read(filename)
+	data_hash = JSON.parse(file)
+	data_hash["origin"] =set_time data_hash["origin"]
+	data_hash
+end
+
+def set_time(string)
+	a = string.gsub('#{year}', Date.today.strftime("%Y"))
+	b = a.gsub('#{month}', Date.today.strftime("%m"))
+	b.gsub('#{day}', Date.today.strftime("%d"))
 end
 
 def parseBody body

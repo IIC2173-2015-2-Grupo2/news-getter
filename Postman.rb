@@ -14,12 +14,14 @@ class Postman
 		@@news = []
 	end
 
+# add the news to a queue
 	def add_news noticia
 		noticia.each do |n|
 			@@news << n
 		end
 	end
 
+# check if there is something to send. if there is send it
 	def done_fetch
 		if !@@news.nil?
 			puts "Enviando noticias..."
@@ -29,7 +31,7 @@ class Postman
 				}
 			}
 			begin
-		    Postman.send_news('/', options)
+		    Postman.send_news(@url, options)
 		    puts "Noticias enviadas."
 			rescue
 				return false
@@ -38,6 +40,7 @@ class Postman
 		end
 	end
 
+# sendinf function require by httparty
 	def self.send_news(uri, object)
 		post(uri, object)
 	end
