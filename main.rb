@@ -1,5 +1,4 @@
 # simple script to start everything
-system "ruby config_db.rb"
 
 # simple server
 require 'sinatra'
@@ -26,4 +25,4 @@ post '/new-source' do
 end
 
 # start scheduler in the background
-system "ruby scheduler.rb &"
+system "ruby scheduler.rb"

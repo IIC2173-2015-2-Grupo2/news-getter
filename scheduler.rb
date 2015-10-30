@@ -9,7 +9,7 @@ s = Rufus::Scheduler.new
 s.every '780s', :first_in => 1 do
   Dir["./source_lib/*.json"].each do |source|
     Loader.load(source)
-    sleep(60)
+    sleep(10)
   end
 end
 

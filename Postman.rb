@@ -31,7 +31,7 @@ class Postman
 				}
 			}
 			begin
-		    Postman.send_news('/', options)
+		    Postman.send_news(@url, options)
 		    puts "Noticias enviadas."
 			rescue
 				return false

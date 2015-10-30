@@ -6,5 +6,6 @@
   "header" : "description/text()",
   "url" : "guid/text()",
   "body": ["//div[contains(@class, 'l4ta_contenedorTxtARtc')]/p/text()", false],
-  "tags" : ["bnflnbnnbg", false]
+  "tags" : ["bnflnbnnbg", false],
+  "image" : ["//div//img/@src",2]
 }

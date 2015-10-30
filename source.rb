@@ -13,7 +13,7 @@ class Source
 
   def initialize(filename)
     @filename = filename
-    @extras = ["body", "tags", "special"]
+    @extras = ["body", "tags", "special", "image"]
   end
 
 # main method to fetch news
@@ -27,6 +27,7 @@ class Source
     news = doc.xpath(data["news"]).collect do |node|
       x = collect_news_item(node, data)
       time = parseTime x["time"].to_s
+      puts last_fetch
       break if !earlier?(last_fetch, time)
       x
     end
@@ -36,12 +37,20 @@ class Source
 # collect a particular news
   def collect_news_item(node, data)
     h = Hash[data.keys[2..5].map {|x| [x, node.xpath(data[x]).to_s]}]
-    h["body"] = get_body(h["url"], data["body"])
-    h["tags"] = fetch_tags(h["url"], data["tags"]) if data["tags"].last
-    h["url"] = fetch_url(node.to_s) if data["special"]
-    h
+    get_extras(h, node, data)
   end
 
+# gets te rest of the important stuff
+  def get_extras(hash, node, data)
+    hash["body"] = get_body(hash["url"], data["body"])
+    hash["tags"] = fetch_tags(hash["url"], data["tags"]) if data["tags"].last
+    hash["url"] = fetch_url(node.to_s) if data["special"]
+    aux = data["image"]
+    if aux != nil
+      hash["image"] = get_image(hash["url"], aux) unless aux[0] == 0
+    end
+    hash
+  end
   def fetch_url(body)
     aux = body.split('<link>').last
     aux = aux.split('<pubdate>').first
@@ -74,6 +83,21 @@ class Source
       aux = aux + p.text + '\n'
     end
     aux
+  end
+
+  def get_image(url, image)
+    doc = Nokogiri::HTML(open(url))
+    get_image1(doc, image[0]) if image[1] == 1
+    get_image2(doc, image[0]) if image[1] == 2
+  end
+
+# first way of getting images
+  def get_image1(doc, image)
+    x = doc.xpath(image).to_s
+  end
+  # second way of geeting images
+  def get_image2(doc, image)
+    x = doc.xpath(image).first.to_s
   end
 
 # fetch tags if possible

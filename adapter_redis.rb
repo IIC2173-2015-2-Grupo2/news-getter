@@ -8,28 +8,31 @@ class Adapter
 
 # initialize the class and the conection
   def initialize
-    @redis = Redis.new(:host => 'redis', :port => 6379)
+    @redis = Redis.new(:host => 'localhost', :port => 6379)
   end
 
-# create databse with some info
+  # erase the info
   def create_db
-    ["CNN", "Emol", "LaCuarta", "LaTercera", "SoyChile"].each do |source|
-      @redis.set(source, "2000-01-01 00:00:00")
-    end
-
-    Dir["./source_lib/*.json"].each do |source|
-      @redis.set(source, "2000-01-01 00:00:00")
-    end
-    @redis.set("SOURCES",Dir["./source_lib/*.json"].count)
+  ["CNN", "Emol", "LaCuarta", "LaTercera", "SoyChile"].each do |source|
+    @redis.set(source, "2000-01-01 00:00:00")
   end
+
+  Dir["./source_lib/*.json"].each do |source|
+    @redis.set(source, "2000-01-01 00:00:00")
+  end
+  @redis.set("SOURCES",Dir["./source_lib/*.json"].count)
+end
+
+
 
 # get last fetch
   def last_fetch source
     begin
-      return @redis.get(source)
+      res = @redis.get(source)
+      res ||= "2000-01-01 00:00:00"
     rescue
-      "Could not fetch data. Did you create the database (create_db)"
     end
+    res
   end
 
   # get source count
@@ -37,7 +40,6 @@ class Adapter
     begin
       return @redis.get("SOURCES")
     rescue
-      "Could not fetch data. Did you create the database (create_db)"
     end
   end
 
@@ -59,7 +61,6 @@ class Adapter
       a = a +1
       @redis.set("SOURCES", a)
     rescue
-      puts "Could not create source. Did you create the database (create_db)"
     end
   end
 

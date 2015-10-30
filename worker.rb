@@ -24,7 +24,7 @@ class Worker
     news ||= []
 
     if news.length > 0
-      @last_fetch = news.first[:time]
+      @last_fetch = news.first["time"]
       @postman.add_news(news)
       if @postman.done_fetch
         @adapter.update_last_fetch(@source.name, @last_fetch)

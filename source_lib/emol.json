@@ -6,5 +6,6 @@
   "header" : "div[contains(@class, 'listado')]/span/text()",
   "url" : "div[contains(@class, 'listado')]/a/@href",
   "body": ["//div[contains(@id, 'cuDetalle_cuTexto_textoNoticia')]", true],
-  "tags" : ["bnflnbnnbg", false]
+  "tags" : ["bnflnbnnbg", false],
+  "image" : ["//div[contains(@class, 'cont_iz_cuerpo_foto')]//img/@src", 1]
 }

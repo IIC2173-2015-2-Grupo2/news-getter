@@ -1,10 +1,11 @@
 {
-  "origin" : "http://www.tercera.cl/feed/manager?type=rss&sc=TEFURVJDRVJB",
+  "origin" : "http://www.latercera.com/feed/manager?type=rss&sc=TEFURVJDRVJB&citId=9&categoryId=674",
   "news" : "//item",
   "title" : "title/text()",
   "time" :  "pubdate/text()",
   "header" : "description/text()",
   "url" : "guid/text()",
   "body": ["//div[contains(@class, 'article-center-text')]/p/text()", false],
-  "tags" : ["//ul[contains(@class, 'listags')]/li/a/text()", true]
+  "tags" : ["//ul[contains(@class, 'listags')]/li/a/text()", true],
+  "image" : ["//div[contains(@class, 'wrapfoto')]/img/@src", 1]
 }
