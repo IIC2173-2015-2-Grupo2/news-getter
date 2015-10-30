@@ -1,5 +1,5 @@
 # configure the database
-require './adapter_redis'
+require './adapter'
 
 a = Adapter.new
 a.create_db

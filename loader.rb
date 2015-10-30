@@ -2,7 +2,7 @@
 require './Postman'
 require './worker'
 require './source'
-require './adapter_redis'
+require './adapter'
 
 # this class starts the wrokers
 class Loader

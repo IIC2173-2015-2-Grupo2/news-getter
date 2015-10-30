@@ -28,19 +28,18 @@ class Source
       x = collect_news_item(node, data)
       time = parseTime x["time"].to_s
       x["time"] = time.to_s
-      break if !earlier?(last_fetch, time)
+      break unless earlier?(last_fetch, time)
       x
     end
     news
   end
 
-# collect a particular news
+  # collect a particular news
   def collect_news_item(node, data)
-    h = Hash[data.keys[2..5].map {|x| [x, node.xpath(data[x]).to_s]}]
-    h["title"] = h["title"].gsub(/[^a-zA-Z0-9\- ]/,"")
-    h["header"] = h["header"].gsub(/[^a-zA-Z0-9\- ]/,"")
-    h = get_extras(h, node, data)
-
+    h = Hash[data.keys[2..5].map { |x| [x, node.xpath(data[x]).to_s] }]
+    h["title"] = h["title"].gsub(/[^a-zA-Z0-9\- ]/, "")
+    h["header"] = h["header"].gsub(/[^a-zA-Z0-9\- ]/, "")
+    get_extras(h, node, data)
   end
 
 # gets te rest of the important stuff
@@ -59,6 +58,7 @@ class Source
     hash["image"] = get_any_image(hash["url"]) if hash["image"] == ""
     hash
   end
+
   # gets the url of some sources
   def fetch_url(body)
     aux = body.split('<link>').last
@@ -66,7 +66,7 @@ class Source
     aux
   end
 
-# get the body of a news
+  # get the body of a news
   def get_body(url, body)
     begin
     doc = Nokogiri::HTML(open(url))
