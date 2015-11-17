@@ -8,8 +8,11 @@ require './adapter'
 class Loader
 
   def self.load(filename)
-    w = Worker.new(Postman.new, Source.new(filename), Adapter.new)
-    w.work
+    worker = Worker.new(Postman.new, Source.new(filename), Adapter.new)
+    worker.work
   end
 
+  def self.load_pages(src)
+    worker_pages = Worker.new(Postman.new, Source.new(src), Adapter.new)
+  end
 end

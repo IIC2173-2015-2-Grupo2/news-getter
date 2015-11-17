@@ -38,4 +38,26 @@ class Worker
       puts "Nothing to send: #{@source.name}"
     end
   end
+
+  def work_pages
+    begin
+      news = @source.fetch_page(@source.filename, @adapter)
+      @adapter.update_last_id(@source.last_id.to_s)
+    rescue
+      puts "Something went wrong getting the news. Try again later"
+    end
+
+    news ||= []
+
+    if news.length > 0
+      @postman.add_news(news)
+      if @postman.done_fetch
+        puts "Success: #{@source.name}"
+      else
+        puts "Something went wrong sending the news"
+      end
+    else
+      puts "Nothing to send: #{@source.name}"
+    end
+  end
 end

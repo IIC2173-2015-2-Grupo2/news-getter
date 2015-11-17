@@ -4,21 +4,67 @@ require 'open-uri'
 require 'json'
 require 'date'
 require './source_lib/utilities'
+require './adapter_redis'
 
 # Source strategy
 class Source
 
   attr_accessor :filename
   attr_accessor :extras
+  attr_accessor :news_fetched
+  attr_accessor :page_news
+  attr_accessor :last_id
 
   def initialize(filename)
     @filename = filename
     @extras = ["body", "tags", "special", "image"]
+    @page_news = []
   end
 
 # main method to fetch news
   def fetch_news(last_fetch = "#{Date.today.to_s} 00:00:00")
     x = build_news(parse_json(@filename), last_fetch)
+  end
+
+# here it will build an array with the next 300 news
+  def fetch_page(data, adapter)
+    last_fetched = adapter.get_last_fetched
+    pages = get_json(data.to_s + "?page=" + last_fetched[:page].to_s + "&limit=10")
+
+    if pages["next"].nil?
+      next_page = 0
+    else
+      next_page = 1
+    end
+
+    news = pages["news"]
+
+    add_news = 0
+
+    news.each do |news_node|
+      href = news_node["href"]
+      return @page_news unless (@page_news.count < 300)
+      @page_news << fetch_news_json(href)
+      add_news = add_news + 1
+    end
+
+    adapter.update_last_value(last_fetched[:value].to_i + add_news)
+    adapter.update_last_page(last_fetched[:page].to_i + next_page)
+
+    fetch_page(data, adapter)
+  end
+
+# method used to create the json with news info
+  def fetch_news_json(data)
+    x = get_json("http://" + data)
+    @last_id = x["id"]
+    news = {
+      title: x["title"].to_s, time: x["date"].to_s,
+      header: "null", url: x["href"].to_s,
+      source: "ArquiAPI", body: x["body"].to_s,
+      tags: [x["category"].to_s, x["author"].to_s], language: "en"
+    }
+    return news
   end
 
 # here it builds the news array
@@ -34,7 +80,17 @@ class Source
     news
   end
 
-  # collect a particular news
+# method used to get the json from a specific url
+  def get_json(url)
+    open(url) {|f|
+      f.each_line {|line|
+        pages = JSON.parse(line)
+        return pages
+      }
+    }
+  end
+
+# collect a particular news
   def collect_news_item(node, data)
     h = Hash[data.keys[2..5].map { |x| [x, node.xpath(data[x]).to_s] }]
     h["title"] = h["title"].gsub(/[^a-zA-Z0-9\- ]/, "")
