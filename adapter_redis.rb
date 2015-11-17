@@ -12,16 +12,16 @@ class Adapter
 
   # erase the info
   def create_db
-  ["CNN", "Emol", "LaCuarta", "LaTercera", "SoyChile"].each do |source|
-    @redis.set(source, "2000-01-01 00:00:00")
-  end
+    ["CNN", "Emol", "LaCuarta", "LaTercera", "SoyChile"].each do |source|
+      @redis.set(source, "2000-01-01 00:00:00")
+    end
 
-  Dir["./source_lib/*.json"].each do |source|
-    @redis.set(source, "2000-01-01 00:00:00")
+    Dir["./source_lib/*.json"].each do |source|
+      @redis.set(source, "2000-01-01 00:00:00")
 
+    end
+    @redis.set("SOURCES",Dir["./source_lib/*.json"].count)
   end
-  @redis.set("SOURCES",Dir["./source_lib/*.json"].count)
-end
 
 
 
@@ -44,7 +44,7 @@ end
   end
 
 
-# update last_fetch
+  # update last_fetch
   def update_last_fetch(source, update)
     @redis.set(source, update)
   rescue
@@ -61,4 +61,44 @@ end
     rescue
     end
   end
+
+  def clear_pages
+    begin
+      @redis.set("ID_FETCHED", nil)
+      @redis.set("FETCHED", nil)
+      @redis.set("PAGE", 0)
+    rescue
+    end
+  end
+
+  def get_last_fetched
+    begin
+      res = {id: @redis.get("ID_FETCHED"), page: @redis.get("PAGE"), value: @redis.get("FETCHED")}
+      res ||= {id: "", page: "", value: ""}
+    rescue
+    end
+    res
+  end
+
+  def update_last_id(value)
+    begin
+      @redis.set("ID_FETCHED", value)
+    rescue
+    end
+  end
+
+  def update_last_page(value)
+    begin
+      @redis.set("PAGE", value)
+    rescue
+    end
+  end
+
+  def update_last_value(value)
+    begin
+      @redis.set("FETCHED", value)
+    rescue
+    end
+  end
+
 end
