@@ -12,4 +12,8 @@ s.every '780s', :first_in => 1 do
   end
 end
 
+s.every '60s', :first_in => 1 do
+	Loader.load_pages("http://arquiapi.ing.puc.cl/news")
+end
+
 s.join
