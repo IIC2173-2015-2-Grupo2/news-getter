@@ -7,7 +7,7 @@ class Adapter
 
   # initialize the class and the conection
   def initialize
-    @redis = Redis.new(host: '127.0.0.1', port: 6379)
+    @redis = Redis.new(host: 'redis', port: 6379)
   end
 
   # erase the info

@@ -25,5 +25,6 @@ post '/new-source' do
   "New Source On lib"
 end
 
+puts "#{ENV['URL_ANALYZER']} --- #{ENV['URI_ANALYZER']}"
 # start scheduler in the background
 system "ruby scheduler.rb &"

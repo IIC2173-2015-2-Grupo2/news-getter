@@ -14,5 +14,6 @@ class Loader
 
   def self.load_pages(src)
     worker_pages = Worker.new(Postman.new, Source.new(src), Adapter.new)
+    worker_pages.work_pages
   end
 end
