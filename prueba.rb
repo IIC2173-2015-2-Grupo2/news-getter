@@ -9,5 +9,5 @@ adapter.clear_pages
 while(true)
   worker_pages = Worker.new(Postman.new, Source.new("http://arquiapi.ing.puc.cl/news"), adapter)
   worker_pages.work_pages
-  #sleep 60
+  sleep 60
 end

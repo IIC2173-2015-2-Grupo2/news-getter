@@ -7,5 +7,7 @@
   "url" : "guid/text()",
   "body": ["//div[contains(@class, 'article-center-text')]/p/text()", false],
   "tags" : ["//ul[contains(@class, 'listags')]/li/a/text()", true],
-  "image" : ["//div[contains(@class, 'wrapfoto')]/img/@src", 1]
+  "image" : ["//div[contains(@class, 'wrapfoto')]/img/@src", 1],
+  "source" : "La Tercera",
+  "language" : "sp"
 }

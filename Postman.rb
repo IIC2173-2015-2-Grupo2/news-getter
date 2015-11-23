@@ -15,15 +15,14 @@ class Postman
 		@@news = []
 	end
 
-# add the news to a queue
+ # add the news to a queue
 	def add_news noticia
 		noticia.each do |n|
 			@@news << n
 		end
-
 	end
 
-# check if there is something to send. if there is send it
+ # check if there is something to send. if there is send it
 	def done_fetch
 		if !@@news.nil?
 			puts "Enviando noticias..."
@@ -31,7 +30,9 @@ class Postman
 				header: {'Content-type' => 'application/json'},
 				body: @@news.to_json
 			}
-			puts options
+			File.open('file_json_complete.json', 'w') do |f|
+  			f.puts @@news.to_json
+			end
 			begin
 		    Postman.send_news(@url, options)
 		    puts "Noticias enviadas."

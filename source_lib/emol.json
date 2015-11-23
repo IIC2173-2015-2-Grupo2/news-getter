@@ -7,5 +7,7 @@
   "url" : "div[contains(@class, 'listado')]/a/@href",
   "body": ["//div[contains(@id, 'cuDetalle_cuTexto_textoNoticia')]", true],
   "tags" : ["bnflnbnnbg", false],
-  "image" : ["//div[contains(@class, 'cont_iz_cuerpo_foto')]//img/@src", 1]
+  "image" : ["//div[contains(@class, 'cont_iz_cuerpo_foto')]//img/@src", 1],
+  "language" : "sp",
+  "source" : "Emol"
 }

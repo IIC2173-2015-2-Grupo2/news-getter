@@ -1,5 +1,5 @@
 # File for Adapter
-require "redis"
+require 'redis'
 
 # Simple adapter for redis
 class Adapter
@@ -7,7 +7,7 @@ class Adapter
 
   # initialize the class and the conection
   def initialize
-    @redis = Redis.new(host: 'redis', port: 6379)
+    @redis = Redis.new(host: '127.0.0.1', port: 6379)
   end
 
   # erase the info
@@ -31,6 +31,7 @@ class Adapter
       res = @redis.get(source)
       res ||= "2000-01-01 00:00:00"
     rescue
+      res = "2000-01-01 00:00:00"
     end
     res
   end

@@ -7,5 +7,7 @@
   "header" : "description/text()",
   "body": ["nonononononno", false],
   "tags" : ["//ufdsfs", false],
-  "special" : true
+  "special" : true,
+  "language" : "sp",
+  "source" : "SoyChile"
 }

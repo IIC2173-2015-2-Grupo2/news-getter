@@ -61,7 +61,7 @@ class Source
     news = {
       title: x["title"].to_s, time: x["date"].to_s,
       header: "null", url: x["href"].to_s, imageUrl: "null",
-      source: "ArquiAPI", body: x["body"].to_s, 
+      source: "ArquiAPI", body: x["body"].to_s,
       tags: [x["category"].to_s, x["author"].to_s], language: "en"
     }
     return news
@@ -98,20 +98,24 @@ class Source
     get_extras(h, node, data)
   end
 
-# gets te rest of the important stuff
+ # gets te rest of the important stuff
   def get_extras(hash, node, data)
     hash["body"] = get_body(hash["url"], data["body"])
+    hash["body"] = hash["header"] if hash["body"].nil?
     hash["body"] = hash["body"].gsub(/[^a-zA-Z0-9\- ]/,"")  if (hash["body"] != nil)
     hash["tags"] = Array.new
     hash["tags"] = fetch_tags(hash["url"], data["tags"]) if data["tags"].last
     hash["url"] = fetch_url(node.to_s) if data["special"]
+    hash["source"] = data["source"]
+    hash["language"] = data["language"]
     aux = data["image"]
     if aux != nil
-      hash["image"] = get_image(hash["url"], aux) unless aux[0] == 0
+      hash["imageUrl"] = get_image(hash["url"], aux) unless aux[0] == 0
     else
-      hash["image"] = ""
+      hash["imageUrl"] = ""
     end
-    hash["image"] = get_any_image(hash["url"]) if hash["image"] == ""
+    hash["imageUrl"] = get_any_image(hash["url"]) if hash["imageUrl"] == ""
+    hash["imageUrl"] = "null" if hash["imageUrl"].nil?
     hash
   end
 

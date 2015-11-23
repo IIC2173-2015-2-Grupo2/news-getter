@@ -7,5 +7,7 @@
   "url" : "guid/text()",
   "body": ["//div[contains(@class, 'l4ta_contenedorTxtARtc')]/p/text()", false],
   "tags" : ["bnflnbnnbg", false],
-  "image" : ["//div//img/@src",2]
+  "image" : ["//div//img/@src",2],
+  "source" : "La Cuarta",
+  "language" : "sp"
 }
