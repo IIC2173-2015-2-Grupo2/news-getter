@@ -22,7 +22,7 @@ class Source
   end
 
 # main method to fetch news
-  def fetch_news(last_fetch = "#{Date.today.to_s} 00:00:00")
+  def fetch_news(last_fetch = "#{Date.today} 00:00:00")
     x = build_news(parse_json(@filename), last_fetch)
   end
 
@@ -67,12 +67,12 @@ class Source
     return news
   end
 
-# here it builds the news array
+  # here it builds the news array
   def build_news(data, last_fetch)
     doc = Nokogiri::HTML(open(data["origin"]))
     news = doc.xpath(data["news"]).collect do |node|
       x = collect_news_item(node, data)
-      time = parseTime x["time"].to_s
+      time = parse_time x["time"].to_s
       x["time"] = time.to_s
       break unless earlier?(last_fetch, time)
       x
@@ -98,18 +98,18 @@ class Source
     get_extras(h, node, data)
   end
 
- # gets te rest of the important stuff
+# gets te rest of the important stuff
   def get_extras(hash, node, data)
     hash["body"] = get_body(hash["url"], data["body"])
     hash["body"] = hash["header"] if hash["body"].nil?
-    hash["body"] = hash["body"].gsub(/[^a-zA-Z0-9\- ]/,"")  if (hash["body"] != nil)
+    hash["body"] = hash["body"].gsub(/[^a-zA-Z0-9\- ]/,"")  if !hash["body"].nil?
     hash["tags"] = Array.new
     hash["tags"] = fetch_tags(hash["url"], data["tags"]) if data["tags"].last
     hash["url"] = fetch_url(node.to_s) if data["special"]
     hash["source"] = data["source"]
     hash["language"] = data["language"]
     aux = data["image"]
-    if aux != nil
+    if !aux.nil?
       hash["imageUrl"] = get_image(hash["url"], aux) unless aux[0] == 0
     else
       hash["imageUrl"] = ""
@@ -119,7 +119,7 @@ class Source
     hash
   end
 
-  # gets the url of some sources
+# gets the url of some sources
   def fetch_url(body)
     aux = body.split('<link>').last
     aux = aux.split('<pubdate>').first
@@ -143,7 +143,7 @@ class Source
   end
 
   def get_body1(doc, body)
-    parseBody doc.xpath(body[0]).first.to_s
+    parse_body doc.xpath(body[0]).first.to_s
   end
 
   def get_body2(doc, body)
