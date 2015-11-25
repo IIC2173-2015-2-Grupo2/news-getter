@@ -43,7 +43,7 @@ class Source
 
     news.each do |news_node|
       href = news_node["href"]
-      return @page_news unless (@page_news.count < 300)
+      return @page_news unless (@page_news.count < 600)
       @page_news << fetch_news_json(href)
       add_news = add_news + 1
     end
