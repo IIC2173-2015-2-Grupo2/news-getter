@@ -1,3 +1,5 @@
+redis:
+  image: redis
 news-getter:
   build: .
   ports:
@@ -10,5 +12,3 @@ news-getter:
     - URI_ANALYZER
     - URL_ANALYZER
     - MOBILE_KEYS
-redis:
-  image: redis

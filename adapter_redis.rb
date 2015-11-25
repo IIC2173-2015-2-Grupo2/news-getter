@@ -8,6 +8,7 @@ class Adapter
   # initialize the class and the conection
   def initialize
     @redis = Redis.new(host: 'redis', port: 6379)
+    puts " AQUIIIII #{@redis.get('PAGE')}"
   end
 
   # erase the info
