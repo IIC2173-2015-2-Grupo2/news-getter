@@ -12,7 +12,6 @@ set :environment, :production
 
 class Main < Sinatra::Base
   _ = Scheduler.new
-  a = Adapter.new
   get '/hi' do
     "Hi there"
   end
