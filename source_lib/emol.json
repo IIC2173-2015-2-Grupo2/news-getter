@@ -9,5 +9,6 @@
   "tags" : ["bnflnbnnbg", false],
   "image" : ["//div[contains(@class, 'cont_iz_cuerpo_foto')]//img/@src", 1],
   "language" : "sp",
-  "source" : "Emol"
+  "source" : "Emol",
+  "aux_image" : "http://static.emol.cl/emol50/img/logo_emol.gif"
 }

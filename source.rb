@@ -93,8 +93,8 @@ class Source
 # collect a particular news
   def collect_news_item(node, data)
     h = Hash[data.keys[2..5].map { |x| [x, node.xpath(data[x]).to_s] }]
-    h["title"] = h["title"].gsub(/[^a-zA-Z0-9\- ]/, "")
-    h["header"] = h["header"].gsub(/[^a-zA-Z0-9\- ]/, "")
+    h["title"] = h["title"].gsub(/[^a-zA-Z0-9áéíóúÁÉÍÓÚÑñ&* ]/, "")
+    h["header"] = h["header"].gsub(/[^a-zA-Z0-9áéíóúÁÉÍÓÚÑñ&* ]/, "")
     get_extras(h, node, data)
   end
 
@@ -102,7 +102,7 @@ class Source
   def get_extras(hash, node, data)
     hash["body"] = get_body(hash["url"], data["body"])
     hash["body"] = hash["header"] if hash["body"].nil?
-    hash["body"] = hash["body"].gsub(/[^a-zA-Z0-9\- ]/,"")  if !hash["body"].nil?
+    hash["body"] = hash["body"].gsub(/[^a-zA-Z0-9áéíóúÁÉÍÓÚÑñ&* ]/,"")  if !hash["body"].nil?
     hash["tags"] = Array.new
     hash["tags"] = fetch_tags(hash["url"], data["tags"]) if data["tags"].last
     hash["url"] = fetch_url(node.to_s) if data["special"]
@@ -114,8 +114,8 @@ class Source
     else
       hash["imageUrl"] = ""
     end
-    hash["imageUrl"] = get_any_image(hash["url"]) if hash["imageUrl"] == ""
-    hash["imageUrl"] = "null" if hash["imageUrl"].nil?
+    hash["imageUrl"] = get_any_image(hash["url"], data) if hash["imageUrl"] == ""
+    hash["imageUrl"] = data["aux_image"] if hash["imageUrl"].nil?
     hash
   end
 
@@ -179,13 +179,14 @@ class Source
     return aux
   end
 
-  def get_any_image(url)
+  def get_any_image(url, data)
     x = ""
     begin
       doc = Nokogiri::HTML(open(url))
       x = doc.xpath("//img[contains(@src, 'http')]/@src").first.to_s
     rescue
     end
+    x = data["aux_image"] if x.nil?
     x
   end
 

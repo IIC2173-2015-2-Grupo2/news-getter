@@ -9,5 +9,6 @@
   "tags" : ["bnflnbnnbg", false],
   "image" : ["//div//img/@src",2],
   "source" : "La Cuarta",
-  "language" : "sp"
+  "language" : "sp",
+  "aux_image" : "http://resource.lacuarta.com/img/logo_L4com.png"
 }

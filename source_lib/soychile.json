@@ -9,5 +9,6 @@
   "tags" : ["//ufdsfs", false],
   "special" : true,
   "language" : "sp",
-  "source" : "SoyChile"
+  "source" : "SoyChile",
+  "aux_image" : "http://www.mapuche.info/wps_logo/soychile.gif"
 }

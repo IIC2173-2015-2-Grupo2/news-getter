@@ -9,5 +9,6 @@
   "tags" : ["//ul[contains(@class, 'listags')]/li/a/text()", true],
   "image" : ["//div[contains(@class, 'wrapfoto')]/img/@src", 1],
   "source" : "La Tercera",
-  "language" : "sp"
+  "language" : "sp",
+  "aux_image": "http://1.bp.blogspot.com/-XuNlah9QmoU/TwDIOkrsixI/AAAAAAAAAbU/7vLu9fJWGrE/s1600/la+Tercera.png"
 }
