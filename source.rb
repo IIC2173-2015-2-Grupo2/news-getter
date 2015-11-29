@@ -64,7 +64,7 @@ class Source
     @last_id = x["id"]
     news = {
       title: x["title"].to_s, time: x["date"].to_s,
-      header: "null", url: x["href"].to_s, imageUrl: "null",
+      header: "null", url: "http://#{x['href'].to_s}", imageUrl: "null",
       source: "ArquiAPI", body: x["body"].to_s,
       tags: [x["category"].to_s, x["author"].to_s], language: "en"
     }
