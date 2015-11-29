@@ -5,6 +5,7 @@ require 'json'
 require 'date'
 require './source_lib/utilities'
 require './adapter_redis'
+require 'i18n'
 
 # Source strategy
 class Source
@@ -14,11 +15,14 @@ class Source
   attr_accessor :news_fetched
   attr_accessor :page_news
   attr_accessor :last_id
+  attr_accessor :num_news
 
   def initialize(filename)
     @filename = filename
     @extras = ["body", "tags", "special", "image"]
     @page_news = []
+    @num_news = ENV['NUM_NEWS'].to_i
+    @num_news = 300 if @num_news== 0
   end
 
 # main method to fetch news
@@ -43,7 +47,7 @@ class Source
 
     news.each do |news_node|
       href = news_node["href"]
-      return @page_news unless (@page_news.count < 300)
+      return @page_news unless (@page_news.count < @num_news)
       @page_news << fetch_news_json(href)
       add_news = add_news + 1
     end
@@ -93,8 +97,8 @@ class Source
 # collect a particular news
   def collect_news_item(node, data)
     h = Hash[data.keys[2..5].map { |x| [x, node.xpath(data[x]).to_s] }]
-    h["title"] = h["title"].gsub(/[^a-zA-Z0-9áéíóúÁÉÍÓÚÑñ&* ]/, "")
-    h["header"] = h["header"].gsub(/[^a-zA-Z0-9áéíóúÁÉÍÓÚÑñ&* ]/, "")
+    h["title"] = replace_vocals h["title"].gsub(/[^a-zA-Z0-9áéíóúÁÉÍÓÚÑñ&* ]/, "")
+    h["header"] = replace_vocals h["header"].gsub(/[^a-zA-Z0-9áéíóúÁÉÍÓÚÑñ&* ]/, "")
     get_extras(h, node, data)
   end
 
@@ -102,7 +106,7 @@ class Source
   def get_extras(hash, node, data)
     hash["body"] = get_body(hash["url"], data["body"])
     hash["body"] = hash["header"] if hash["body"].nil?
-    hash["body"] = hash["body"].gsub(/[^a-zA-Z0-9áéíóúÁÉÍÓÚÑñ&* ]/,"")  if !hash["body"].nil?
+    hash["body"] = clean_news(hash)
     hash["tags"] = Array.new
     hash["tags"] = fetch_tags(hash["url"], data["tags"]) if data["tags"].last
     hash["url"] = fetch_url(node.to_s) if data["special"]
@@ -119,6 +123,13 @@ class Source
     hash
   end
 
+  def clean_news(hash)
+    hash["body"] = parse_body(hash["body"])
+    hash["body"] = hash["body"].gsub(/[^a-zA-Z0-9áéíóúÁÉÍÓÚÑñ&*., ]/,"")  unless hash["body"].nil?
+    hash["body"] = replace_vocals hash["body"]
+    puts hash["body"]
+    hash["body"]
+  end
 # gets the url of some sources
   def fetch_url(body)
     aux = body.split('<link>').last
@@ -188,6 +199,20 @@ class Source
     end
     x = data["aux_image"] if x.nil?
     x
+  end
+
+  def replace_vocals(string)
+    string = string.gsub('á', 'a')
+    string = string.gsub('é', 'e')
+    string = string.gsub('í', 'i')
+    string = string.gsub('ó', 'o')
+    string = string.gsub('ú', 'u')
+    string = string.gsub('Á', 'A')
+    string = string.gsub('É', 'E')
+    string = string.gsub('Í', 'I')
+    string = string.gsub('Ó', 'O')
+    string = string.gsub('Ú', 'U')
+    string
   end
 
 # returns its name

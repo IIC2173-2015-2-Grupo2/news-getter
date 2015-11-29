@@ -3,7 +3,8 @@ require './adapter_redis'
 
 adapter = Adapter.new
 adapter.clear_pages
+
 while true
-  Loader.load("./source_lib/soychile.json")
-  sleep(30)
+  Loader.load_pages("http://arquiapi.ing.puc.cl/news")
+  sleep(60)
 end
