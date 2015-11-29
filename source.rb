@@ -5,7 +5,6 @@ require 'json'
 require 'date'
 require './source_lib/utilities'
 require './adapter_redis'
-require 'i18n'
 
 # Source strategy
 class Source
