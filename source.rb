@@ -124,7 +124,7 @@ class Source
 
   def clean_news(hash)
     hash["body"] = parse_body(hash["body"])
-    hash["body"] = hash["body"].gsub(/[^a-zA-Z0-9áéíóúÁÉÍÓÚÑñ&*., ]/,"")  unless hash["body"].nil?
+    hash["body"] = hash["body"].gsub(/[^a-zA-Z0-9áéíóúÁÉÍÓÚÑñ&*., ]/,"")  if !hash["body"].nil?
     hash["body"] = replace_vocals hash["body"]
     hash["body"]
   end
@@ -210,6 +210,8 @@ class Source
     string = string.gsub('Í', 'I')
     string = string.gsub('Ó', 'O')
     string = string.gsub('Ú', 'U')
+    string = string.gsub('Ñ', 'N')
+    string = string.gsub('ñ', 'n')
     string
   end
 
