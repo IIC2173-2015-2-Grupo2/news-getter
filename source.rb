@@ -126,7 +126,6 @@ class Source
     hash["body"] = parse_body(hash["body"])
     hash["body"] = hash["body"].gsub(/[^a-zA-Z0-9áéíóúÁÉÍÓÚÑñ&*., ]/,"")  unless hash["body"].nil?
     hash["body"] = replace_vocals hash["body"]
-    puts hash["body"]
     hash["body"]
   end
 # gets the url of some sources
